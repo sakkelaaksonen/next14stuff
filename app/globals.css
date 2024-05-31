@@ -6,6 +6,10 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  --bgwiz-tile: url("/jspixtile.webp");
+  --bgwiz-tile-blue: url("/jspix-tile-blue.webp");
+
+  --bgwiz-blue: url("/jspix.webp");
 }
 
 @media (prefers-color-scheme: dark) {
@@ -18,18 +22,33 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
+  /* background: linear-gradient(
       to bottom,
       transparent,
       rgb(var(--background-end-rgb))
     )
-    rgb(var(--background-start-rgb));
+    rgb(var(--background-start-rgb)); */
+  background-image: var(--bgwiz-blue);
+  background-position: center center;
+  background-attachment: fixed;
+  background-size: cover;
+  /* filter: invert(0.8); */
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+h1 {
+  @apply text-white text-3xl drop-shadow-xl px-4;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+p {
+  @apply text-white text-xl px-2;
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
 .formClasses {
@@ -43,6 +62,20 @@ dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-aut
   @apply mx-2;
 }
 
+.main {
+  @apply flex min-h-screen flex-col items-center gap-12 p-36;
+  background-image: var(--bgwiz-blue);
+  background-position: center center;
+  background-attachment: fixed;
+  background-size: cover;
+  background-clip: content-box;
+  filter: hue-rotate(60deg);
+}
+
+.block {
+  @apply z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex;
+}
+
 .submit {
-  @apply px-2 ms-2 bg-slate-50 border-green-800 border-2 disabled:bg-black;
+  @apply px-2 ms-2 bg-slate-50 border-green-800 border-2 disabled:bg-black disabled:cursor-wait disabled:text-white;
 }
