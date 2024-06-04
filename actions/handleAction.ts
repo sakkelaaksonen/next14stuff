@@ -2,6 +2,7 @@
 
 import { redirect } from 'next/navigation'
 import mc, {KEY} from '@/data/mc-cli.mjs'
+import EntryValidator from '@/util/validate'
 
 export  type CheckBoxValue = 'on' | null
 export type GoAwayValue = '0'| '1'
@@ -9,13 +10,14 @@ export type GoAwayValue = '0'| '1'
 export type SomeForm = {
     systemValue: string
     text?: string | null
-    amount: string | null
+    amount: number
     status: CheckBoxValue
     goaway?: GoAwayValue
 
 }
 
 export type MessageType = 'yes'|'no' | ''
+
 export type ReturnValue = {
     message: MessageType
     amount: number,
@@ -27,13 +29,16 @@ export default async function handleAction(systemValue:string, prevState: any, f
     const rawFormData: SomeForm = {
         systemValue,
         text: formData.get('text') as string,
-        amount: formData.get('amount') as string,
+        amount:  parseInt(formData.get('amount')  as string ?? '0',10) as number,
         status: formData.get('status') as CheckBoxValue,
         goaway: formData.get('goaway') as GoAwayValue
     }
     // Validation here, return errors if needed
-    
-    
+    const valid = EntryValidator.safeParse(rawFormData)
+    if(!valid.success) {
+        throw new Error('Validation error')
+    }
+    console.log('Valid data. Saving to memory')
     //Just a delay so we can see what's going on.
     await new Promise(res => setTimeout(res, 2000))
 
@@ -46,9 +51,7 @@ export default async function handleAction(systemValue:string, prevState: any, f
         redirect('/goaway')
     }
 
-    const amount = parseInt(rawFormData.amount || '0' ,10)
-    const text = rawFormData.text
-    
+    const {amount,text}    = rawFormData
     
     // revalidate cache
     // revalidatePath('/listofactions')
