@@ -8,8 +8,12 @@
   --background-end-rgb: 255, 255, 255;
   --bgwiz-tile: url("/jspixtile.webp");
   --bgwiz-tile-blue: url("/jspix-tile-blue.webp");
-
+  --bg-dark-trans: rgba(0, 0, 0, 0.6);
   --bgwiz-blue: url("/jspix.webp");
+}
+
+.bg-dark-trans {
+  background-color: var(--bg-dark-trans)
 }
 
 @media (prefers-color-scheme: dark) {
@@ -42,13 +46,12 @@ body {
 }
 
 h1 {
-  @apply text-white text-3xl drop-shadow-xl px-4;
-  background-color: rgba(0, 0, 0, 0.6);
+  @apply text-white text-3xl drop-shadow-xl px-4 bg-dark-trans;
+
 }
 
 p {
-  @apply text-white text-xl px-2;
-  background-color: rgba(0, 0, 0, 0.6);
+  @apply text-white text-xl px-2 bg-dark-trans;
 }
 
 .formClasses {
@@ -78,4 +81,9 @@ dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-aut
 
 .submit {
   @apply px-2 ms-2 bg-slate-50 border-green-800 border-2 disabled:bg-black disabled:cursor-wait disabled:text-white;
+}
+
+
+.quest-block {
+  @apply relative z-[-1] flex place-items-center bg-dark-trans;
 }

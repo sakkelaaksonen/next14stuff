@@ -1,44 +1,59 @@
 'use server'
 
+import { redirect } from 'next/navigation'
+import mc, {KEY} from '@/data/mc-cli.mjs'
 
-type CheckBoxValue = 'on' | null
+export  type CheckBoxValue = 'on' | null
+export type GoAwayValue = '0'| '1'
 
-type SomeForm = {
+export type SomeForm = {
     systemValue: string
-    text: string | null
+    text?: string | null
     amount: string | null
     status: CheckBoxValue
-    goaway?: CheckBoxValue
+    goaway?: GoAwayValue
 
 }
 
+export type MessageType = 'yes'|'no' | ''
 export type ReturnValue = {
-    message: 'yes'|'no' | '',
+    message: MessageType
     amount: number,
-    text?: string,
+    text?: string | null,
 }
 
-export default async function handleAction(systemValue:string, prevState: any, formData: FormData) {
+export default async function handleAction(systemValue:string, prevState: any, formData: FormData): Promise<ReturnValue> {
 
     const rawFormData: SomeForm = {
         systemValue,
         text: formData.get('text') as string,
         amount: formData.get('amount') as string,
         status: formData.get('status') as CheckBoxValue,
-        goaway: formData.get('goaway') as CheckBoxValue
+        goaway: formData.get('goaway') as GoAwayValue
     }
     // Validation here, return errors if needed
-    console.log(rawFormData)
+    
+    
+    //Just a delay so we can see what's going on.
+    await new Promise(res => setTimeout(res, 2000))
+
+    const data = await mc.get(KEY)
+    mc.set(KEY, [...data,rawFormData],(e:unknown)=>{
+        throw new Error('Error while saving to memcached')
+    })
+    //Redirect to goaway page instead of returning to form
+    if(rawFormData.goaway === '1') {
+        redirect('/goaway')
+    }
+
     const amount = parseInt(rawFormData.amount || '0' ,10)
     const text = rawFormData.text
-    //Do something with data, handle t if needed
-    await new Promise(res => setTimeout(res, 3000))
-
-    // handle return value for success or error
+    
+    
     // revalidate cache
     // revalidatePath('/listofactions')
 
-    return { message: rawFormData.status === 'on' ? 'yes': 'no', amount:rawFormData.amount, text}
+    return { message: rawFormData.status === 'on' ? 'yes': 'no', amount, text}
     
   
 }
