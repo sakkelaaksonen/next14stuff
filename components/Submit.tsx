@@ -18,7 +18,7 @@ export function SubmitButton() {
                 {text}
             </button>
             {pending && 'Scrying for thee fortunes'}
-            <button onClick={goAway}> Go away</button>
+            <button className="submit" onClick={goAway}>Go away</button>
         </div>)
 
 }

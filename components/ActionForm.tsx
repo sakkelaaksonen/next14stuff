@@ -35,25 +35,31 @@ export default function ActionForm({ systemValue }: ActionProps) {
                     <input type="checkbox" name="status" id="status-id" />
                     <input type="hidden" name="goaway" value="0" />
                     <SubmitButton />
-
                 </form >
             </div>
-            <ReadyState {...state} />
+            {state.errors?.text && <p>{state.errors.text}</p>}
+            {state.errors?.amount && <p>{state.errors.amount}</p>}
+           {!state.errors && <ReadyState {...state as ReturnValue} />}
 
         </>
     )
 }
 
 const ReadyState = ({ message, amount, text }: ReturnValue) => {
-    if (message === '') { return null }
-    const hasMessage = message === 'yes';
-    return (
-        <div className="block text-center">
-            <p>Are you ready? "{message}".   {message == 'no' && ' OK, I shall wait'}</p>
-            {hasMessage && text !== '' && <p>What a novel Quest you have! I hope you succeed in {text}</p>}
-            {hasMessage && <p>Twice you are this much: {amount * 2} </p>}
-            <Link href="/" className="bg-dark-trans p-8 m-8 text-white">See all Quests</Link>
-        </div>
-    )
+    
+  if(message === '') {
+    return null
+  }
+
+  const hasMessage = message === 'yes';
+  
+  return (
+      <div className="block text-center">
+          <p>Are you ready? "{message}".   {message == 'no' && ' OK, I shall wait'}</p>
+          {hasMessage && text !== '' && <p>What a novel Quest you have! I hope you succeed in {text}</p>}
+          {hasMessage && <p>Twice you are this much: {amount * 2} </p>}
+          <Link href="/" className="bg-dark-trans p-8 m-8 text-white">See all Quests</Link>
+      </div>
+  )
 
 }
