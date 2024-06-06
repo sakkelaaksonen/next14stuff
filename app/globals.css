@@ -55,14 +55,27 @@ p {
 }
 
 .formClasses {
-  @apply fixed left-0 top-0 flex w-full justify-center border-b 
+  @apply left-0 top-0 flex w-full justify-center border-b flex-col gap-6 items-center
 border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl 
-dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto 
- lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30;
+dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit static w-auto 
+ rounded-xl border bg-gray-200 p-4 dark:bg-zinc-800/30;
 }
 
-.formClasses input {
-  @apply mx-2;
+.formClasses input, .formClasses textarea {
+  @apply mx-2 border-2 border-transparent;
+
+}
+
+.formClasses.error-text textarea, .formClasses.error-amount input[type=number]  {
+  @apply border-orange-600 border-2;
+}
+
+.formClasses.error-status input[type=checkbox]:after {
+  content: "!";
+  color: red;
+  font-size: 1rem;
+  margin-left:1rem;
+
 }
 
 .main {
@@ -76,7 +89,7 @@ dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-aut
 }
 
 .block {
-  @apply z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex;
+  @apply z-10 w-full max-w-5xl items-center justify-center font-mono text-sm flex;
 }
 
 .submit {
@@ -86,4 +99,8 @@ dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-aut
 
 .quest-block {
   @apply relative z-[-1] flex place-items-center bg-dark-trans;
+}
+
+.error {
+  @apply border-orange-800;
 }
