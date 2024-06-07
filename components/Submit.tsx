@@ -1,7 +1,7 @@
 'use client'
 
 import { useFormStatus } from 'react-dom'
-
+import cls from 'classnames'
 function goAway(event: any) { // >:(
 
     const input = event.currentTarget.form?.goaway
@@ -12,13 +12,20 @@ function goAway(event: any) { // >:(
 export function SubmitButton() {
     const { pending } = useFormStatus()
     const text = pending ? '...' : 'Go'
-    return (
+    const loadingClasses = cls('max-w-52', { 'invisible': !pending })
+
+    return (<>
         <div className="block">
             <button type="submit" className="submit" disabled={pending}>
                 {text}
             </button>
-            {pending && 'Scrying for thee fortunes'}
-            <button className="submit" onClick={goAway}>Go away</button>
-        </div>)
+            <button className="submit" onClick={goAway} disabled={pending}>Go away</button>
+        </div>
+        <div className="block ">
+            <p className={loadingClasses}>Scrying for thee fortunes</p>
+        </div>
+        <div className="block">
+        </div>
+    </>)
 
 }

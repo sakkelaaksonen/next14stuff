@@ -5,7 +5,8 @@ export const defaultData = [
         systemValue:'initial default entry',
         text: 'finding the holey gruel.',
         amount: '50',
-        status:'on'
+        status:'on',
+        id:1
     }
 ] 
 

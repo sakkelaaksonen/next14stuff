@@ -13,6 +13,7 @@ export type SomeForm = {
     amount: number
     status: CheckBoxValue
     goaway?: GoAwayValue
+    id: number
 
 }
 
@@ -31,7 +32,8 @@ export default async function handleAction(systemValue:string, prevState: any, f
         text: formData.get('text') as string,
         amount:  parseInt(formData.get('amount')  as string ?? '0',10) as number,
         status: formData.get('status') as CheckBoxValue,
-        goaway: formData.get('goaway') as GoAwayValue
+        goaway: formData.get('goaway') as GoAwayValue,
+        id: new Date().getUTCMilliseconds()
     }
     // Validation here, return errors if needed
     const fields = EntryValidator.safeParse(rawFormData)

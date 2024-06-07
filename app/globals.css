@@ -13,7 +13,7 @@
 }
 
 .bg-dark-trans {
-  background-color: var(--bg-dark-trans)
+  background-color: var(--bg-dark-trans);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -47,7 +47,6 @@ body {
 
 h1 {
   @apply text-white text-3xl drop-shadow-xl px-4 bg-dark-trans;
-
 }
 
 p {
@@ -55,31 +54,31 @@ p {
 }
 
 .formClasses {
-  @apply left-0 top-0 flex w-full justify-center border-b flex-col gap-6 items-center
+  @apply left-0 top-0 flex w-full  min-w-72 justify-center border-b flex-col gap-6 items-center
 border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl 
 dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit static w-auto 
  rounded-xl border bg-gray-200 p-4 dark:bg-zinc-800/30;
 }
 
-.formClasses input, .formClasses textarea {
+.formClasses input,
+.formClasses textarea {
   @apply mx-2 border-2 border-transparent;
-
 }
 
-.formClasses.error-text textarea, .formClasses.error-amount input[type=number]  {
+.formClasses.error-text textarea,
+.formClasses.error-amount input[type="number"] {
   @apply border-orange-600 border-2;
 }
 
-.formClasses.error-status input[type=checkbox]:after {
+.formClasses.error-status input[type="checkbox"]:after {
   content: "!";
   color: red;
   font-size: 1rem;
-  margin-left:1rem;
-
+  margin-left: 1rem;
 }
 
 .main {
-  @apply flex min-h-screen flex-col items-center gap-12 p-36;
+  @apply flex min-h-screen flex-col items-center gap-3 p-36;
   background-image: var(--bgwiz-blue);
   background-position: center center;
   background-attachment: fixed;
@@ -95,7 +94,6 @@ dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit static w-auto
 .submit {
   @apply px-2 ms-2 bg-slate-50 border-green-800 border-2 disabled:bg-black disabled:cursor-wait disabled:text-white;
 }
-
 
 .quest-block {
   @apply relative z-[-1] flex place-items-center bg-dark-trans;
